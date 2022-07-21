@@ -46,12 +46,17 @@ export class ProductsService{
       throw new Error('producto not found')
     }
 
-     this.products[index] = data
+     const product=this.products[index]
+
+      this.products[index] = {
+       ...product,
+        ...data
+      }
 
 
     return {
       message: 'data updated',
-      data
+      product
     }
 
 
