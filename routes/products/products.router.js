@@ -6,16 +6,18 @@ import {ProductsService} from "../../services/products/products.service";
 
 export const PATH_PRODUCTS = '/products';
 const productService = new ProductsService()
-routerProducts.post('/store',(req,res)=> {
+routerProducts.post('/store',async (req,res)=> {
   const body = req.body
-  const product = productService.store(body);
+  const product = await productService.store(body);
+
+
   return res.status(201).json(product);
 })
 routerProducts.patch('/:id', (req,res)=> {
   const body = req.body;
   const {id} = req.params;
 
-  let product = productService.update(body,id);
+  let product =  productService.update(body,id);
   return res.status(200).json(product);
 
 
@@ -24,9 +26,14 @@ const getParamsId= (req)=>{
   const {id} = req.params
   return id
 }
-routerProducts.delete('/:id',(req,res)=> {
-  const product = productService.destroy(getParamsId(req))
-  return res.status(200).json(product)
+routerProducts.delete('/:id',(req,res,next)=> {
+  try{
+    const product =  productService.destroy(getParamsId(req))
+    return res.status(200).json(product)
+  }catch (e){
+    next(e)
+  }
+
 })
 
 routerProducts.get('/product/:id',(req,res)=>{

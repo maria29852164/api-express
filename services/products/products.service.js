@@ -1,4 +1,5 @@
 import faker from 'faker'
+import boom from '@hapi/boom'
 export class ProductsService{
   constructor() {
     this.products = []
@@ -34,16 +35,23 @@ export class ProductsService{
   store(data){
 
       const newProduct = data
+
+
       newProduct.id= faker.datatype.uuid()
-      this.products.push(newProduct)
-    return newProduct
+
+    return new Promise( (resolve, reject)=> {
+       setTimeout(()=> {
+         resolve(data)
+       },2000)
+    })
+
 
   }
 
   update(data,id){
     const index = this.products.findIndex(item => item.id== id)
     if(index == -1){
-      throw new Error('producto not found')
+      throw boom.notFound('not found product')
     }
 
      const product=this.products[index]
@@ -61,8 +69,11 @@ export class ProductsService{
 
 
   }
-  destroy(id){
-    const index = this.products.findIndex(item => item.id == id)
+   destroy(id){
+    const index = this.products.findIndex(item => item.id === id)
+    if(index === -1){
+      throw boom.notFound('not found product')
+    }
 
     this.products.splice(index,1)
     return {
@@ -81,6 +92,12 @@ export class ProductsService{
 
   }
   findOne(id){
-    return this.products.find(item => item.id=== id)
+
+    const index=this.products.findIndex(item => item.id=== id)
+    if(index === -1){
+      throw  boom.notFound('Not found product')
+
+    }
+    return this.products[index]
   }
 }
