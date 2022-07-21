@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src -s",
+
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint",
-    "start": "node index.js",
+    "start": "npm run build-babel && node index.js",
     "dev": "nodemon --exec npm run serve index.js",
     "serve": "babel-node index.js"
   },
