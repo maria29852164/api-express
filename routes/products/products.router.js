@@ -10,10 +10,8 @@ const productService = new ProductsService()
 
 routerProducts.get('/product/:id',(req,res)=>{
   const {id} = req.params;
-  return res.json({
-    id,
-    name:"maria"
-  });
+  const product = productService.findOne(id)
+  return res.json(product)
 })
 
 routerProducts.get('/', (req,res)=>{

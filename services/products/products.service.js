@@ -26,6 +26,7 @@ export class ProductsService{
 
    for(let i = 0; i < cantProducts ; i++ ){
      this.products.push({
+       id: faker.datatype.uuid(),
        name: faker.commerce.productName(),
        price: parseInt(faker.commerce.price(),10),
        image: faker.image.imageUrl()
@@ -35,5 +36,8 @@ export class ProductsService{
    return this.products;
 
 
+  }
+  findOne(id){
+    return this.products.find(item => item.id=== id)
   }
 }
