@@ -64,7 +64,7 @@ export class ProductsService{
 
     return {
       message: 'data updated',
-      product
+      product: this.products[index]
     }
 
 
@@ -87,7 +87,7 @@ export class ProductsService{
 
 
 
-   return this.products;
+   return this.products.slice(0,cantProducts)
 
 
   }
