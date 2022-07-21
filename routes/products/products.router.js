@@ -6,7 +6,28 @@ import {ProductsService} from "../../services/products/products.service";
 
 export const PATH_PRODUCTS = '/products';
 const productService = new ProductsService()
+routerProducts.post('/store',(req,res)=> {
+  const body = req.body
+  const product = productService.store(body);
+  return res.status(201).json(product);
+})
+routerProducts.patch('/:id', (req,res)=> {
+  const body = req.body;
+  const {id} = req.params;
 
+  let product = productService.update(body,id);
+  return res.status(200).json(product);
+
+
+})
+const getParamsId= (req)=>{
+  const {id} = req.params
+  return id
+}
+routerProducts.delete('/:id',(req,res)=> {
+  const product = productService.destroy(getParamsId(req))
+  return res.status(200).json(product)
+})
 
 routerProducts.get('/product/:id',(req,res)=>{
   const {id} = req.params;
@@ -35,13 +56,7 @@ routerProducts.get('/', (req,res)=>{
 
 })
 
-routerProducts.post('/store',(req,res)=> {
-   const body = req.body
-  return res.json({
-    message:'Created',
-    body
-  })
-})
+
 
 
 
