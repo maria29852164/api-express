@@ -1,6 +1,7 @@
 import {routerProducts, PATH_PRODUCTS} from './products/products.router'
 import {routerCategories} from "./categories/categories.route";
 import {routerUser} from "./users/users.router";
+import express, {Router} from "express";
 
 
 
@@ -17,7 +18,11 @@ import {routerUser} from "./users/users.router";
 
 
 export const routesApi =  app => {
-  app.use(PATH_PRODUCTS, routerProducts)
-  app.use('/categories', routerCategories)
-  app.use('/users', routerUser)
+
+  const router = new Router()
+  app.use(express.json())
+  app.use('/api/v1', router)
+  router.use(PATH_PRODUCTS, routerProducts)
+  router.use('/categories', routerCategories)
+  router.use('/users', routerUser)
 }
