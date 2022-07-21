@@ -9,7 +9,7 @@ const port = process.env.PORT || 3001;
 const whileList= ['https://localhost:9000']
 const options = {
   origin: (origin , callback)=> {
-    if(whileList.includes(origin)){
+    if(whileList.includes(origin) || !origin){
       callback(null,true)
     }else{
       callback(new Error('Sin acceso'))
