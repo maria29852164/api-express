@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  db_postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=maria
+      - POSTGRES_PASSWORD=maria2002
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  pg_admin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=secret
+    ports:
+      - "5050:80"
+
+
+
