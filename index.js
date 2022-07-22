@@ -16,7 +16,7 @@ const options = {
     }
   }
 }
-app.
+
 
 app.use(cors(options))
 routesApi(app)
