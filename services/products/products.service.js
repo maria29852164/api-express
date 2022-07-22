@@ -1,18 +1,19 @@
 import faker from 'faker'
 import boom from '@hapi/boom'
+import {pool} from '../../libs/db/postgres.pool'
 export class ProductsService{
   constructor() {
     this.products = []
 
-    for(let i = 0; i < 20 ; i++ ){
-      this.products.push({
-        id: faker.datatype.uuid(),
-        name: faker.commerce.productName(),
-        price: parseInt(faker.commerce.price(),10),
-        image: faker.image.imageUrl()
-      })
 
-    }
+      this.pool= pool;
+      this.pool.on('error',(err)=> console.error(err))
+
+  }
+  async find (){
+    const query = 'SELECT * FROM task';
+    const response = await this.pool.query(query);
+    return response.rows
   }
 
 

@@ -44,23 +44,14 @@ routerProducts.get('/product/:id',validate(getProductSchema,'params'),(req,res)=
   return res.json(product)
 })
 
-routerProducts.get('/', (req,res)=>{
-  const {limit} = req.query
-  const cantProducts = limit || 10
+routerProducts.get('/', async (req,res,next)=>{
+  try{
+    const products = await productService.find();
+    return res.json(products)
+  }catch (e){
+    next(e)
+  }
 
-  // for(let i = 0; i < cantProducts ; i++ ){
-  //   products.push({
-  //     name: faker.commerce.productName(),
-  //     price: parseInt(faker.commerce.price(),10),
-  //     image: faker.image.imageUrl()
-  //   })
-  //
-  // }
-  // return res.send(products)
-
-    productService.all(cantProducts).then(data=>{
-     return res.json(data);
-   })
 
 
 })
