@@ -1,17 +1,19 @@
 import faker from 'faker'
 import boom from '@hapi/boom'
 import { getConnection } from "../../libs/db/postgres";
+import { pool } from "../../libs/db/postgres.pool";
 
 export class UsersService{
   constructor() {
     this.users = []
-    getConnection().then(connection=> this.client= connection)
+    this.pool = pool
+    this.pool.on('error',(err)=> console.log(err))
 
 
 
   }
   async find(){
-    const rta =await  this.client.query('SELECT * FROM task');
+    const rta =await  this.pool.query('SELECT * FROM tasks');
     return rta.rows;
 
   }
