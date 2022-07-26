@@ -11,9 +11,9 @@ export class UsersService{
 
 
   }
-  async find(){
-    const [data,metadata] =await  this.sequelize.query('SELECT * FROM tasks');
-    return {data,metadata}
+  async find() {
+    const results = await this.sequelize.models.User.findAll()
+    return results
 
   }
 

@@ -1,5 +1,5 @@
 import { User, UserSchema } from "./user.model";
 
-const setupModels=()=>{
-  User.init(UserSchema)
+export const setupModels= (sequelize) =>{
+  User.init(UserSchema,User.config(sequelize))
 }

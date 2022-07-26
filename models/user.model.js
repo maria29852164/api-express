@@ -1,4 +1,4 @@
-import Sequelize, { DataTypes, Model, Sequelize } from "sequelize";
+import Sequelize, { DataTypes, Model } from "sequelize";
 
 
 export const UserSchema = {
